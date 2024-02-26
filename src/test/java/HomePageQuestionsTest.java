@@ -1,4 +1,5 @@
-import PageObject.HomePage;
+import constants.ConstParam;
+import pageobject.HomePage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,34 +10,33 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 @RunWith(Parameterized.class)
 public class HomePageQuestionsTest {
-    private WebDriver driver;
-    private final By question;
-    private final By answer;
-    private final String expected;
+    private static WebDriver driver;
+    private final By QUESTION;
+    private final By ANSWER;
+    private final String EXPECTED;
     private HomePage homePage;
 
     public HomePageQuestionsTest(By question, By answer, String expected) {
-        this.question = question;
-        this.answer = answer;
-        this.expected = expected;
+        this.QUESTION = question;
+        this.ANSWER = answer;
+        this.EXPECTED = expected;
     }
 
     @Parameterized.Parameters
     public static Object[][] getData() {
-        HomePage sectionWithQuestion = new HomePage();
+        HomePage sectionWithQuestion = new HomePage(driver);
         return new Object[][]{
-                {sectionWithQuestion.whatIsThePrice, sectionWithQuestion.price, sectionWithQuestion.priceText},
-                {sectionWithQuestion.someScooter, sectionWithQuestion.howManyScooters, sectionWithQuestion.howManyScootersText},
-                {sectionWithQuestion.rentalTimeCalculation, sectionWithQuestion.answerAboutRentalTime, sectionWithQuestion.answerAboutRentalTimeText},
-                {sectionWithQuestion.orderForToday, sectionWithQuestion.onlyFromTomorrow, sectionWithQuestion.onlyFromTomorrowText},
-                {sectionWithQuestion.changeTheRentalPeriod, sectionWithQuestion.callSupport, sectionWithQuestion.callSupportText},
-                {sectionWithQuestion.aboutСharging, sectionWithQuestion.withСharging, sectionWithQuestion.withСhargingText},
-                {sectionWithQuestion.howToCancelTheOrder, sectionWithQuestion.beCanceledBeforeDelivery, sectionWithQuestion.beCanceledBeforeDeliveryText},// передали тестовые данные
-                {sectionWithQuestion.deliveryOutsideTheMKAD, sectionWithQuestion.deliveryInMoscowAndTheRegion, sectionWithQuestion.deliveryInMoscowAndTheRegionText},
+                {sectionWithQuestion.whatIsThePrice, sectionWithQuestion.price, ConstParam.priceText},
+                {sectionWithQuestion.someScooter, sectionWithQuestion.howManyScooters, ConstParam.HOW_MANY_SCOOTERS_TEXT},
+                {sectionWithQuestion.rentalTimeCalculation, sectionWithQuestion.answerAboutRentalTime, ConstParam.ANSWER_ABOUT_RENTAL_TIME_TEXT},
+                {sectionWithQuestion.orderForToday, sectionWithQuestion.onlyFromTomorrow, ConstParam.ONLY_FROM_TOMORROW_TEXT},
+                {sectionWithQuestion.changeTheRentalPeriod, sectionWithQuestion.callSupport, ConstParam.CALL_SUPPORT_TEXT},
+                {sectionWithQuestion.aboutСharging, sectionWithQuestion.withСharging, ConstParam.WITH_СHARGING_TEXT},
+                {sectionWithQuestion.howToCancelTheOrder, sectionWithQuestion.beCanceledBeforeDelivery, ConstParam.BE_CANCELED_BEFORE_DELIVERY_TEXT},// передали тестовые данные
+                {sectionWithQuestion.deliveryOutsideTheMKAD, sectionWithQuestion.deliveryInMoscowAndTheRegion, ConstParam.DELIVERY_IN_MOSCOW_AND_THE_REGION_TEXT},
         };
     }
 
@@ -47,14 +47,13 @@ public class HomePageQuestionsTest {
         this.driver = new ChromeDriver();
         //this.driver = new FirefoxDriver();
         homePage = new HomePage(driver);
+        driver.get(ConstParam.PAGE_URL);//открыли сайт
     }
 
     @Test
     public void testQuestionAnswer() {
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-        homePage.questionAnswer(question, answer);
-        String actual = driver.findElement(answer).getText();
-        Assert.assertEquals(expected, actual);
+        String AnswerText = homePage.questionAnswer(QUESTION, ANSWER);
+        Assert.assertEquals(EXPECTED, AnswerText);
     }
 
     @After

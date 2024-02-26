@@ -1,9 +1,11 @@
-package FaildTest;
+package faildtest;
 
-import PageObject.HomePage;
-import PageObject.PageOrderForWhom;
+import constants.ConstParam;
+import pageobject.HomePage;
+import pageobject.PageOrderForWhom;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,15 +13,16 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+
 @RunWith(Parameterized.class)
 public class NameErrorMessageTest {
     public WebDriver driver;
-    private String name;
+    private final String NAME;
     private HomePage homePage;
     private PageOrderForWhom dataClient;
 
     public NameErrorMessageTest(String name) {
-        this.name = name;
+        this.NAME = name;
     }
 
 
@@ -40,16 +43,16 @@ public class NameErrorMessageTest {
         //this.driver = new FirefoxDriver();
         homePage = new HomePage(driver);
         dataClient = new PageOrderForWhom(driver);
-        driver.get("https://qa-scooter.praktikum-services.ru/");//открыли сайт
+        driver.get(ConstParam.PAGE_URL);//открыли сайт
     }
 
     @Test
-    public void errorMassageName() {
-        driver.findElement(homePage.acceptCookies).click();
+    public void errorMessageName() {
+        homePage.acceptСookies();
         homePage.clickButtonOrderUp();
-        driver.findElement(dataClient.fieldName).sendKeys(name);
+        driver.findElement(dataClient.fieldName).sendKeys(NAME);
         driver.findElement(dataClient.fieldSurname).click();
-        driver.findElement(dataClient.nameErrorMessage);
+        Assert.assertTrue(driver.findElement(dataClient.nameErrorMessage).isDisplayed());
     }
 
     @After

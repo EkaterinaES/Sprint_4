@@ -1,4 +1,4 @@
-package PageObject;
+package pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -11,11 +11,11 @@ public class PageOrderRentData {
     public PageOrderRentData(WebDriver driver) {
         this.driver = driver;
     }
+
     //поле Когда привезти самокат
     public By fieldWhenToBring = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
     //поле срок аренды
     public By fieldRentalPeriod = By.xpath(".//div[@class='Dropdown-placeholder']");
-
     //комментарии
     public By commentFor = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     //кнопка Заказать
@@ -23,6 +23,7 @@ public class PageOrderRentData {
 
     public By buttonYes = By.xpath(".//button[@class = 'Button_Button__ra12g Button_Middle__1CSJM' and text() = 'Да']");
     public By messageOrderDone = By.xpath(".//div[text() = 'Заказ оформлен']");
+
     public void enterDataOrder(String dayOfTheMonth, String month, String rentalPeriod, String colour, String comment) {
         driver.findElement(fieldWhenToBring).click();
         String selectedDate = ".//div[contains(@aria-label, '" + dayOfTheMonth + "') and contains(@aria-label, '" + month + "')]";
@@ -36,5 +37,10 @@ public class PageOrderRentData {
         driver.findElement(By.xpath(selectRentalPeriod)).click();
         driver.findElement(By.xpath(".//label[contains(text(), '" + colour + "')]")).click();
         driver.findElement(commentFor).sendKeys(comment);
+        driver.findElement(buttonOrder).click();
+    }
+
+    public void confirmOrder() { //подтвердить оформление заказа
+        driver.findElement(buttonYes).click();
     }
 }

@@ -1,9 +1,10 @@
-import PageObject.HomePage;
+import constants.ConstParam;
+import pageobject.HomePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -14,26 +15,26 @@ public class HomePageLogoAndStatusOrderTest {
     HomePage homePage;
 
     @Before
-    public void StartUp() {
+    public void startUp() {
         WebDriverManager.chromedriver().setup();
         // WebDriverManager.firefoxdriver().setup();
         this.driver = new ChromeDriver();
         //this.driver = new FirefoxDriver();
         homePage = new HomePage(driver);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(ConstParam.PAGE_URL);//открыли сайт
     }
 
     @Test
     public void loadingMainPageFromHomePage() {
         driver.findElement(homePage.logoScooter).click();
-        homePage.checkHomePageScooterLoaded();
+        Assert.assertTrue(driver.findElement(homePage.textScooterForTwoDays).isDisplayed());
     }
 
     @Test
     public void loadingMainPageFromOrderPage() { //проверка загрузки главной страницы Самоката при нажатии на слово Самокат со страницы заказа
         homePage.clickButtonOrderUp();
         driver.findElement(homePage.logoScooter).click();
-        homePage.checkHomePageScooterLoaded();
+        Assert.assertTrue(driver.findElement(homePage.textScooterForTwoDays).isDisplayed());
     }
 
     @Test
@@ -42,7 +43,7 @@ public class HomePageLogoAndStatusOrderTest {
         driver.findElement(homePage.statusOrderButton).click();
         driver.findElement(homePage.fieldStatusOrder).sendKeys("456746");
         driver.findElement(homePage.buttonGo).click();
-        driver.findElement(By.xpath(".//*[@src='/assets/not-found.png']"));
+        Assert.assertTrue(driver.findElement(homePage.noSuchOrder).isDisplayed());
     }
 
     @After

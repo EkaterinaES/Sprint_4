@@ -1,4 +1,4 @@
-package PageObject;
+package pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -30,8 +30,10 @@ public class PageOrderForWhom {
     public By phoneErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Введите корректный номер']");
     //кнопка Далее
     public By buttonFurther = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
+    //текст "Для кого самокат"
+    public By textForWhomScooter = By.xpath(".//div[@class='Order_Header__BZXOb']");
 
-    public void enterDataClient(String name, String surname, String address, String metroStation, String phone){
+    public void enterDataClient(String name, String surname, String address, String metroStation, String phone) {
         driver.findElement(fieldName).sendKeys(name);
         driver.findElement(fieldSurname).sendKeys(surname);
         driver.findElement(fieldAddress).sendKeys(address);
@@ -41,6 +43,7 @@ public class PageOrderForWhom {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", metroStationInListItem);
         driver.findElement(By.xpath(nameStation)).click();
         driver.findElement(fieldPhone).sendKeys(phone);
+        driver.findElement(buttonFurther).click();
     }
 }
 

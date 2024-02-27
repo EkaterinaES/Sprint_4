@@ -5,7 +5,6 @@ import pageobject.PageOrderForWhom;
 import pageobject.PageOrderRentData;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,33 +14,33 @@ import org.openqa.selenium.WebDriver;
 @RunWith(Parameterized.class)
 public class OrderScooterTest {
 
-    public WebDriver driver;
-    private final String NAME;
-    private final String SURNAME;
-    private final String ADDRESS;
-    private final String METRO_STATION;
-    private final String PHONE;
-    private final String DAY_OF_THE_MONTH;
-    private final String MONTH;
-    private final String RENTAL_PERIOD;
-    private final String COLOUR;
-    private final String COMMENT;
+    public static WebDriver driver;
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String metroStation;
+    private final String phone;
+    private final String dayOfTheMonth;
+    private final String month;
+    private final String rentalPeriod;
+    private final String colour;
+    private final String comment;
     private HomePage homePage;
     private PageOrderForWhom dataClient;
     private PageOrderRentData oneOrder;
 
 
     public OrderScooterTest(String name, String surname, String address, String metroStation, String phone, String dayOfTheMonth, String month, String rentalPeriod, String colour, String comment) {
-        this.NAME = name;
-        this.SURNAME = surname;
-        this.ADDRESS = address;
-        this.METRO_STATION = metroStation;
-        this.PHONE = phone;
-        this.DAY_OF_THE_MONTH = dayOfTheMonth;
-        this.MONTH = month;
-        this.RENTAL_PERIOD = rentalPeriod;
-        this.COLOUR = colour;
-        this.COMMENT = comment;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.metroStation = metroStation;
+        this.phone = phone;
+        this.dayOfTheMonth = dayOfTheMonth;
+        this.month = month;
+        this.rentalPeriod = rentalPeriod;
+        this.colour = colour;
+        this.comment = comment;
     }
 
     @Parameterized.Parameters
@@ -62,23 +61,21 @@ public class OrderScooterTest {
         homePage = new HomePage(driver);
         dataClient = new PageOrderForWhom(driver);
         oneOrder = new PageOrderRentData(driver);
+        homePage.acceptCookies(); //приняли куки
     }
 
     @Test
     public void upButtonOrder() { //заказ с верхней кнопки Заказать
-        homePage.acceptСookies(); //приняли куки
         homePage.clickButtonOrderUp(); //кликнули на заказать
-        dataClient.enterDataClient(NAME, SURNAME, ADDRESS, METRO_STATION, PHONE);
-        oneOrder.enterDataOrder(DAY_OF_THE_MONTH, MONTH, RENTAL_PERIOD, COLOUR, COMMENT);
-        oneOrder.confirmOrder();//подтвердили желание сделать заказ
-        Assert.assertTrue(driver.findElement(oneOrder.messageOrderDone).isDisplayed());
+        dataClient.enterDataClient(name, surname, address, metroStation, phone);
+        oneOrder.enterDataOrder(dayOfTheMonth, month, rentalPeriod, colour, comment);
+        oneOrder.confirmOrder();//нажали кнопку Да и проверили появление подтверждения заказа
     }
 
     @Test
-    public void downButtonOrder() { //заказ с нижней кнопки "Заказать" проверяем до момента загрузки страницы заказа
-        homePage.acceptСookies();
-        homePage.clickButtonDownUp();
-        Assert.assertTrue(driver.findElement(dataClient.textForWhomScooter).isDisplayed());
+    public void downButtonOrder() { //Проверка нижней кнопки "Заказать". Проверяем до момента загрузки страницы заказа
+       homePage.clickButtonDownUp();
+       dataClient.orderFormLoaded();
     }
 
     @After

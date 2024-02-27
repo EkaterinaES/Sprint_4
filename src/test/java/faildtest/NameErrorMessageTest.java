@@ -5,7 +5,6 @@ import pageobject.HomePage;
 import pageobject.PageOrderForWhom;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,13 +15,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Parameterized.class)
 public class NameErrorMessageTest {
-    public WebDriver driver;
-    private final String NAME;
+    private static WebDriver driver;
+    private final String name;
     private HomePage homePage;
     private PageOrderForWhom dataClient;
 
     public NameErrorMessageTest(String name) {
-        this.NAME = name;
+        this.name = name;
     }
 
 
@@ -48,11 +47,9 @@ public class NameErrorMessageTest {
 
     @Test
     public void errorMessageName() {
-        homePage.acceptСookies();
+        homePage.acceptCookies();
         homePage.clickButtonOrderUp();
-        driver.findElement(dataClient.fieldName).sendKeys(NAME);
-        driver.findElement(dataClient.fieldSurname).click();
-        Assert.assertTrue(driver.findElement(dataClient.nameErrorMessage).isDisplayed());
+        dataClient.errorMessageName(name);
     }
 
     @After

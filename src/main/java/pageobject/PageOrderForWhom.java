@@ -1,37 +1,41 @@
 package pageobject;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class PageOrderForWhom {
-    WebDriver driver;
+import static org.junit.Assert.*;
 
+public class PageOrderForWhom {
+    private final WebDriver driver;
+
+    //конструктор
     public PageOrderForWhom(WebDriver driver) {
         this.driver = driver;
     }
 
     //поле Имя
-    public By fieldName = By.xpath(".//input[@placeholder='* Имя']");
-    public By nameErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Введите корректное имя']"); //<div class="Input_ErrorMessage__3HvIb Input_Visible___syz6">Введите корректное имя</div>
+    private final By fieldName = By.xpath(".//input[@placeholder='* Имя']");
+    private final By nameErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Введите корректное имя']"); //<div class="Input_ErrorMessage__3HvIb Input_Visible___syz6">Введите корректное имя</div>
     //поле Фамилия
-    public By fieldSurname = By.xpath(".//input[@placeholder='* Фамилия']");
-    public By surnameErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Введите корректную фамилию']");
+    private final By fieldSurname = By.xpath(".//input[@placeholder='* Фамилия']");
+    private final By surnameErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Введите корректную фамилию']");
     //поле Адрес: куда привезти
-    public By fieldAddress = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
-    public By addressErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Введите корректный адрес']");
+    private final By fieldAddress = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
+    private final By addressErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Введите корректный адрес']");
     //поле Станция метро
-    public By metroErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Выберите станцию']");
-    public By fieldMetroStation = By.xpath(".//*[@class = 'select-search']"); //".//*[@class = 'select-search']" .//input[@placeholder='* Станция метро']
+    private final By metroErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Выберите станцию']");
+    private final By fieldMetroStation = By.xpath(".//*[@class = 'select-search']"); //".//*[@class = 'select-search']" .//input[@placeholder='* Станция метро']
 
     //поле Телефон: на него позвонит курьер
-    public By fieldPhone = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
-    public By phoneErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Введите корректный номер']");
+    private final By fieldPhone = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private final By phoneErrorMessage = By.xpath(".//*[@class = 'Input_ErrorMessage__3HvIb Input_Visible___syz6' and text()='Введите корректный номер']");
     //кнопка Далее
-    public By buttonFurther = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
+    private final By buttonFurther = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
     //текст "Для кого самокат"
-    public By textForWhomScooter = By.xpath(".//div[@class='Order_Header__BZXOb']");
+    private final By textForWhomScooter = By.xpath(".//div[@class='Order_Header__BZXOb']");
 
     public void enterDataClient(String name, String surname, String address, String metroStation, String phone) {
         driver.findElement(fieldName).sendKeys(name);
@@ -45,6 +49,20 @@ public class PageOrderForWhom {
         driver.findElement(fieldPhone).sendKeys(phone);
         driver.findElement(buttonFurther).click();
     }
+
+    public void errorMessageSurname(String surname) {
+        driver.findElement(fieldSurname).sendKeys(surname);
+        driver.findElement(fieldAddress).click();
+        assertTrue(driver.findElement(surnameErrorMessage).isDisplayed());
+    }
+
+    public void orderFormLoaded() {
+        assertTrue(driver.findElement(textForWhomScooter).isDisplayed());
+    }
+
+    public void errorMessageName(String name) {//Проверяем появление ошибки при введении недопустимого значения в поле имя
+        driver.findElement(fieldName).sendKeys(name);
+        driver.findElement(fieldSurname).click();
+        assertTrue(driver.findElement(nameErrorMessage).isDisplayed());
+    }
 }
-
-

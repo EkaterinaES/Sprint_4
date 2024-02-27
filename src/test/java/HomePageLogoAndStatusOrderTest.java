@@ -11,8 +11,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 public class HomePageLogoAndStatusOrderTest {
-    private WebDriver driver;
-    HomePage homePage;
+    private static WebDriver driver;
+    private HomePage homePage;
 
     @Before
     public void startUp() {
@@ -25,25 +25,19 @@ public class HomePageLogoAndStatusOrderTest {
     }
 
     @Test
-    public void loadingMainPageFromHomePage() {
-        driver.findElement(homePage.logoScooter).click();
-        Assert.assertTrue(driver.findElement(homePage.textScooterForTwoDays).isDisplayed());
+    public void loadingMainPageFromHomePage() { //проверка загрузки главной страницы Самоката при нажатии на слово Самокат на главной странице
+        homePage.loadingMainPageAfterClickLogoScooter();
     }
 
     @Test
     public void loadingMainPageFromOrderPage() { //проверка загрузки главной страницы Самоката при нажатии на слово Самокат со страницы заказа
         homePage.clickButtonOrderUp();
-        driver.findElement(homePage.logoScooter).click();
-        Assert.assertTrue(driver.findElement(homePage.textScooterForTwoDays).isDisplayed());
+        homePage.loadingMainPageAfterClickLogoScooter();
     }
 
     @Test
     public void orderNumberFalseTest() {
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.findElement(homePage.statusOrderButton).click();
-        driver.findElement(homePage.fieldStatusOrder).sendKeys("456746");
-        driver.findElement(homePage.buttonGo).click();
-        Assert.assertTrue(driver.findElement(homePage.noSuchOrder).isDisplayed());
+        homePage.orderNumberFalse();
     }
 
     @After

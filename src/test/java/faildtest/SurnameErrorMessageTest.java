@@ -1,6 +1,7 @@
 package faildtest;
 
 import constants.ConstParam;
+import org.junit.Assert;
 import pageobject.HomePage;
 import pageobject.PageOrderForWhom;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -47,7 +48,7 @@ public class SurnameErrorMessageTest {
     public void errorMessageSurname() {
         homePage.acceptCookies();
         homePage.clickButtonOrderUp();
-        dataClient.errorMessageSurname(surname);
+        Assert.assertTrue(dataClient.errorMessageSurname(surname));
     }
 
     @After

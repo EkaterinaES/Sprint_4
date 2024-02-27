@@ -91,17 +91,17 @@ public class HomePage {
         driver.findElement(acceptCookies).click();
     }
 
-    public void loadingMainPageAfterClickLogoScooter() {
+    public boolean loadingMainPageAfterClickLogoScooter() {
         driver.findElement(logoScooter).click();
-        assertTrue(driver.findElement(textScooterForTwoDays).isDisplayed());
+        return driver.findElement(textScooterForTwoDays).isDisplayed();
     }
 
-    public void orderNumberFalse() {
+    public boolean orderNumberFalse() {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(statusOrderButton).click();
         driver.findElement(fieldStatusOrder).sendKeys("456746");
         driver.findElement(buttonGo).click();
-        assertTrue(driver.findElement(noSuchOrder).isDisplayed());
+        return driver.findElement(noSuchOrder).isDisplayed();
     }
 
     //методы для получения значения приватных полей

@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.Assert.assertTrue;
+
 public class HomePageLogoAndStatusOrderTest {
     private static WebDriver driver;
     private HomePage homePage;
@@ -26,18 +28,18 @@ public class HomePageLogoAndStatusOrderTest {
 
     @Test
     public void loadingMainPageFromHomePage() { //проверка загрузки главной страницы Самоката при нажатии на слово Самокат на главной странице
-        homePage.loadingMainPageAfterClickLogoScooter();
+        assertTrue(homePage.loadingMainPageAfterClickLogoScooter());
     }
 
     @Test
     public void loadingMainPageFromOrderPage() { //проверка загрузки главной страницы Самоката при нажатии на слово Самокат со страницы заказа
         homePage.clickButtonOrderUp();
-        homePage.loadingMainPageAfterClickLogoScooter();
+        assertTrue(homePage.loadingMainPageAfterClickLogoScooter());
     }
 
     @Test
     public void orderNumberFalseTest() {
-        homePage.orderNumberFalse();
+        assertTrue(homePage.orderNumberFalse());
     }
 
     @After

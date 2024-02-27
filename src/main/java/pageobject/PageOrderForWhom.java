@@ -1,6 +1,5 @@
 package pageobject;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -50,19 +49,19 @@ public class PageOrderForWhom {
         driver.findElement(buttonFurther).click();
     }
 
-    public void errorMessageSurname(String surname) {
+    public boolean errorMessageSurname(String surname) {
         driver.findElement(fieldSurname).sendKeys(surname);
         driver.findElement(fieldAddress).click();
-        assertTrue(driver.findElement(surnameErrorMessage).isDisplayed());
+        return driver.findElement(surnameErrorMessage).isDisplayed();
     }
 
-    public void orderFormLoaded() {
-        assertTrue(driver.findElement(textForWhomScooter).isDisplayed());
+    public boolean orderFormLoaded() {
+        return driver.findElement(textForWhomScooter).isDisplayed();
     }
 
-    public void errorMessageName(String name) {//Проверяем появление ошибки при введении недопустимого значения в поле имя
+    public boolean errorMessageName(String name) {//Проверяем появление ошибки при введении недопустимого значения в поле имя
         driver.findElement(fieldName).sendKeys(name);
         driver.findElement(fieldSurname).click();
-        assertTrue(driver.findElement(nameErrorMessage).isDisplayed());
+        return driver.findElement(nameErrorMessage).isDisplayed();
     }
 }

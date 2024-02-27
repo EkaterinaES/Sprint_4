@@ -43,8 +43,8 @@ public class PageOrderRentData {
         driver.findElement(buttonOrder).click();
     }
 
-    public void confirmOrder() { //подтвердить оформление заказа
+    public boolean confirmOrder() { //подтвердить оформление заказа
         driver.findElement(buttonYes).click();
-        assertTrue(driver.findElement(messageOrderDone).isDisplayed());
+        return driver.findElement(messageOrderDone).isDisplayed();
     }
 }

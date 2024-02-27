@@ -1,6 +1,7 @@
 package faildtest;
 
 import constants.ConstParam;
+import org.junit.Assert;
 import pageobject.HomePage;
 import pageobject.PageOrderForWhom;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -11,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import static org.junit.Assert.*;
 
 
 @RunWith(Parameterized.class)
@@ -49,7 +52,7 @@ public class NameErrorMessageTest {
     public void errorMessageName() {
         homePage.acceptCookies();
         homePage.clickButtonOrderUp();
-        dataClient.errorMessageName(name);
+        assertTrue(dataClient.errorMessageName(name));
     }
 
     @After

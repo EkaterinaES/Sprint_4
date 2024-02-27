@@ -1,4 +1,5 @@
 import constants.ConstParam;
+import org.junit.Assert;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import pageobject.HomePage;
 import pageobject.PageOrderForWhom;
@@ -10,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+
+import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class OrderScooterTest {
@@ -69,13 +72,13 @@ public class OrderScooterTest {
         homePage.clickButtonOrderUp(); //кликнули на заказать
         dataClient.enterDataClient(name, surname, address, metroStation, phone);
         oneOrder.enterDataOrder(dayOfTheMonth, month, rentalPeriod, colour, comment);
-        oneOrder.confirmOrder();//нажали кнопку Да и проверили появление подтверждения заказа
+        assertTrue(oneOrder.confirmOrder());
     }
 
     @Test
     public void downButtonOrder() { //Проверка нижней кнопки "Заказать". Проверяем до момента загрузки страницы заказа
        homePage.clickButtonDownUp();
-       dataClient.orderFormLoaded();
+       assertTrue(dataClient.orderFormLoaded());
     }
 
     @After

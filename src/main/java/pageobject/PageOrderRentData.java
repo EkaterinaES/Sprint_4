@@ -43,8 +43,10 @@ public class PageOrderRentData {
         driver.findElement(buttonOrder).click();
     }
 
-    public boolean confirmOrder() { //подтвердить оформление заказа
+    public void clickOnButtonYes() {
         driver.findElement(buttonYes).click();
+    }
+    public boolean isOrderConfirmation(){ //проверяем, что появилось сообщение об оформлении заказа
         return driver.findElement(messageOrderDone).isDisplayed();
     }
 }

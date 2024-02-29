@@ -1,7 +1,6 @@
 package faildtest;
 
 import constants.ConstParam;
-import org.junit.Assert;
 import pageobject.HomePage;
 import pageobject.PageOrderForWhom;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -13,9 +12,11 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import static org.junit.Assert.*;
+
 @RunWith(Parameterized.class)
 public class SurnameErrorMessageTest {
-    private static WebDriver driver;
+    private WebDriver driver;
     private final String surname;
     private HomePage homePage;
     private PageOrderForWhom dataClient;
@@ -48,7 +49,8 @@ public class SurnameErrorMessageTest {
     public void errorMessageSurname() {
         homePage.acceptCookies();
         homePage.clickButtonOrderUp();
-        Assert.assertTrue(dataClient.errorMessageSurname(surname));
+        dataClient.fieldSurname(surname);
+        assertTrue(dataClient.isMessageAboutIncorrectSurname());
     }
 
     @After

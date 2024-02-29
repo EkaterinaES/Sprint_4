@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.*;
 
 public class HomePage {
     private final WebDriver driver;
@@ -76,7 +75,7 @@ public class HomePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", stringQuestion);
         stringQuestion.click();
         driver.findElement(answer).click();
-        return driver.findElement(answer).getText();
+        return driver.findElement(answer).getText();//получили текст ответа
     }
 
     public void clickButtonOrderUp() {
@@ -91,16 +90,22 @@ public class HomePage {
         driver.findElement(acceptCookies).click();
     }
 
-    public boolean loadingMainPageAfterClickLogoScooter() {
+    public void clickLogoScooter() {
         driver.findElement(logoScooter).click();
+    }
+
+    public boolean loadingMainPageAfterClickLogoScooter() {
         return driver.findElement(textScooterForTwoDays).isDisplayed();
     }
 
-    public boolean orderNumberFalse() {
+    public void checkOrderStatus(String orderNumber) {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.findElement(statusOrderButton).click();
-        driver.findElement(fieldStatusOrder).sendKeys("456746");
+        driver.findElement(statusOrderButton).click();//клик на кнопку Статус заказа
+        driver.findElement(fieldStatusOrder).sendKeys(orderNumber);//ввести номер заказа
         driver.findElement(buttonGo).click();
+    }
+
+    public boolean isNoSuchOrder() {//проверка появления сообщения "такого заказа нет"
         return driver.findElement(noSuchOrder).isDisplayed();
     }
 

@@ -49,19 +49,25 @@ public class PageOrderForWhom {
         driver.findElement(buttonFurther).click();
     }
 
-    public boolean errorMessageSurname(String surname) {
-        driver.findElement(fieldSurname).sendKeys(surname);
-        driver.findElement(fieldAddress).click();
-        return driver.findElement(surnameErrorMessage).isDisplayed();
-    }
-
-    public boolean orderFormLoaded() {
+    public boolean isOrderFormLoaded() {//загрузилась страница с полями для заказа
         return driver.findElement(textForWhomScooter).isDisplayed();
     }
 
-    public boolean errorMessageName(String name) {//Проверяем появление ошибки при введении недопустимого значения в поле имя
+    public void fieldName(String name) {//заполнить поле Имя и снять фокус с поля
         driver.findElement(fieldName).sendKeys(name);
-        driver.findElement(fieldSurname).click();
+        driver.findElement(textForWhomScooter).click();//нажимаем для того, чтобы снять фокус с поля Имя
+    }
+
+    public boolean isMessageAboutIncorrectName() {//проверка появления сообщения о некорректном имени
         return driver.findElement(nameErrorMessage).isDisplayed();
+    }
+
+    public void fieldSurname(String surname) {//заполнить поле Имя и снять фокус с поля
+        driver.findElement(fieldSurname).sendKeys(surname);
+        driver.findElement(textForWhomScooter).click();//нажимаем для того, чтобы снять фокус с поля Фамилия
+    }
+
+    public boolean isMessageAboutIncorrectSurname() {//проверка появления сообщения о некорректном имени
+        return driver.findElement(surnameErrorMessage).isDisplayed();
     }
 }

@@ -1,7 +1,6 @@
 import constants.ConstParam;
 import pageobject.HomePage;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -11,6 +10,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import static org.junit.Assert.*;
+
 @RunWith(Parameterized.class)
 public class HomePageQuestionsTest {
     private static WebDriver driver;
@@ -18,7 +19,6 @@ public class HomePageQuestionsTest {
     private final By answer;
     private final String expected;
     private HomePage homePage;
-
     public HomePageQuestionsTest(By question, By answer, String expected) {
         this.question = question;
         this.answer = answer;
@@ -53,7 +53,7 @@ public class HomePageQuestionsTest {
     @Test
     public void testQuestionAnswer() {
         String answerText = homePage.questionAnswer(question, answer);
-        Assert.assertEquals(expected, answerText);
+        assertEquals(expected, answerText);
     }
 
     @After

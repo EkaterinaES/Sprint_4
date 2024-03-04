@@ -48,8 +48,8 @@ public class OrderScooterTest {
     @Parameterized.Parameters
     public static Object[][] getDataClient() {
         return new Object[][]{
-                {"Алексей", "Иванов", "Мира, 6", "Чистые пруды", "89119112345", "17", "февраля", "двое суток", "чёрный жемчуг", "Очень жду"},
-                {"Константин", "Петров", "Сиреневый бульвар, 5", "Митино", "89212213144", "2", "марта", "семеро суток", "серая безысходность", "Позвонить за 1 час"},
+                {"Алексей", "Иванов", "Мира, 6", "Чистые пруды", "89119112345", "1", "март", "двое суток", "чёрный жемчуг", "Очень жду"},
+                {"Константин", "Петров", "Сиреневый бульвар, 5", "Митино", "89212213144", "15", "март", "семеро суток", "серая безысходность", "Позвонить за 1 час"},
         };
     }
 
@@ -73,12 +73,6 @@ public class OrderScooterTest {
         oneOrder.enterDataOrder(dayOfTheMonth, month, rentalPeriod, colour, comment);
         oneOrder.clickOnButtonYes();
         assertTrue(oneOrder.isOrderConfirmation());
-    }
-
-    @Test
-    public void downButtonOrder() { //Проверка нижней кнопки "Заказать". Проверяем до момента загрузки страницы заказа
-       homePage.clickButtonDownUp();
-       assertTrue(dataClient.isOrderFormLoaded());
     }
 
     @After

@@ -29,6 +29,7 @@ public class PageOrderRentData {
 
     public void enterDataOrder(String dayOfTheMonth, String month, String rentalPeriod, String colour, String comment) {
         driver.findElement(fieldWhenToBring).click();
+
         String selectedDate = ".//div[contains(@aria-label, '" + dayOfTheMonth + "') and contains(@aria-label, '" + month + "')]";
         WebElement dateListItem = driver.findElement(By.xpath(selectedDate));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", dateListItem);
